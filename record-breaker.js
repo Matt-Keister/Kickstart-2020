@@ -1,3 +1,8 @@
+exports.getCases = (numCases, lines) => [...Array(numCases).keys()].map((value, index) => ({
+    numElements: parseInt(lines[index * 2 + 1]),
+    elements: lines[index * 2 + 2].split(" ").map(s => parseInt(s))
+}))
+
 exports.solve = function (testCase) {
     const { numElements, elements } = testCase
     let recordBreaks = 0

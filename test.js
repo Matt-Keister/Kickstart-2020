@@ -1,32 +1,26 @@
-const readline = require('readline');
 const rb = require('./record-breaker');
 const ap = require('./alien-piano')
+const tb = require('./tree-beauty')
+
+const readline = require('readline');
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 });
 
-let numCases
-let thisCase = {}
-const cases = []
+const lines = []
 
 rl.on('line', (input) => {
-    if (!numCases) {
-        numCases = parseInt(input)
-    } else {
-        if (!thisCase.numElements) {
-            thisCase.numElements = parseInt(input)
-        } else {
-            thisCase.elements = input.split(" ").map(s => parseInt(s))
-            cases.push(thisCase)
-            thisCase = {}
-        }
-    }
+    lines.push(input)
 });
 
 rl.on('close', () => {
-    const solvedCases = cases.map((value, index) => ap.solve(value))
+    const numCases = parseInt(lines[0])
+    
+    const cases = tb.getCases(numCases, lines)
+
+    const solvedCases = cases.map((value, index) => tb.solve(value))
 
     solvedCases.forEach((value, index) => {
         console.log(`Case #${index + 1}: ${value.answer}`)
